@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { LibroController } from './libro/libro.controller';
 
-@Module({})
+@Module({
+  controllers: [LibroController]
+})
 export class ApiModule {}
