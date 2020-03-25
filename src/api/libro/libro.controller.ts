@@ -1,13 +1,16 @@
 import { Body, Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
 import { LibroDto } from './libro-dto';
 import { LibroDtoSinId } from './libro-dto-sin-id';
+import { RestService } from '../rest/rest.service';
 
 
 @Controller('libro')
 export class LibroController {
+  constructor(private restService: RestService){
+  }
   @Get() // mostrar todfos los objetos
   findAll(): LibroDto[] {
-    return [];
+    return this.restService.getLibros();
   }
   @Get('/:id') // mostrar un objeto
   getById(@Param() params): LibroDto {
@@ -20,14 +23,9 @@ export class LibroController {
     return libroDto;
   }
   @Post() // añadir un objeto
-  addOne(@Body() createDto: LibroDtoSinId): LibroDto {
+  addOne(@Body() createDto: LibroDto): LibroDto {
     // recoger el objeto y meterlo en la BBDD
-    const libroDto = new LibroDto();
-    libroDto.id = 1;
-    libroDto.titulo = createDto.titulo;
-    libroDto.autor = createDto.autor;
-    libroDto.fecha = createDto.fecha;
-    return libroDto;
+    return this.restService.addLibro(createDto);
   }
   @Put('/:id') // modificar un objeto
   modifyById(@Param() params,
