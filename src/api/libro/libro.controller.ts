@@ -9,7 +9,7 @@ export class LibroController {
   constructor(private restService: RestService){
   }
   @Get() // mostrar todfos los objetos
-  findAll(): LibroDto[] {
+  async findAll(): Promise<LibroDtoSinId[]> {
     return this.restService.getLibros();
   }
   @Get('/:id') // mostrar un objeto
@@ -22,10 +22,17 @@ export class LibroController {
     libroDto.fecha = "fecha del libro";
     return libroDto;
   }
+  /*
   @Post() // añadir un objeto
   addOne(@Body() createDto: LibroDto): LibroDto {
     // recoger el objeto y meterlo en la BBDD
     return this.restService.addLibro(createDto);
+  }
+  */
+  @Post()
+  async addLibro(@Body() libro: LibroDtoSinId): Promise<LibroDtoSinId>{
+    const libroID = await this.restService.addLibro(libro);
+    return libroID;
   }
   @Put('/:id') // modificar un objeto
   modifyById(@Param() params,
