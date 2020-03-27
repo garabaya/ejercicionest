@@ -5,7 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { LibroSchema } from './schemas/libro-schema';
 
 @Module({
-  imports : [MongooseModule.forFeature([{ name: 'LibroDtoSinId', schema: LibroSchema }])],
+  imports : [MongooseModule.forFeature([{ name: 'LibroDtoSinId', schema: LibroSchema, collection: 'librodtosinids' }])],
   controllers: [LibroController],
   providers: [RestService]
 })
