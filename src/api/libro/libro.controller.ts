@@ -1,5 +1,4 @@
 import { Body, Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
-import { LibroDto } from './libro-dto';
 import { LibroDtoSinId } from './libro-dto-sin-id';
 import { RestService } from '../rest/rest.service';
 
